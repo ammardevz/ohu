@@ -4,9 +4,6 @@ use clap::{Parser, Subcommand, ValueEnum};
 pub struct Cli {
     #[command(subcommand)]
     pub command: Command,
-
-    #[arg(short, long)]
-    pub verbose: bool,
 }
 
 #[derive(Debug, Subcommand, Clone)]
