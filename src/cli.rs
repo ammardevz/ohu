@@ -19,6 +19,9 @@ pub enum Command {
     },
 
     Verify {
+        #[arg(short, long, value_enum)]
+        algorithm: HashAlgorithm,
+
         input: String,
         hash: String,
     },
@@ -27,6 +30,9 @@ pub enum Command {
         #[arg(short, long, value_enum)]
         algorithm: EncryptionAlgorithm,
 
+        #[arg(short, long)]
+        key: String, // hex-encoded
+
         input: String,
         output: String,
     },
@@ -34,6 +40,9 @@ pub enum Command {
     Decrypt {
         #[arg(short, long, value_enum)]
         algorithm: EncryptionAlgorithm,
+
+        #[arg(short, long)]
+        key: String, // hex-encoded
 
         input: String,
         output: String,
@@ -72,7 +81,6 @@ pub enum HashAlgorithm {
 #[derive(Debug, Clone, ValueEnum)]
 pub enum EncryptionAlgorithm {
     Aes128Gcm,
-    Aes192Gcm,
     Aes256Gcm,
 
     ChaCha20Poly1305,
