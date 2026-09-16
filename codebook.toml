@@ -1,1 +1,4 @@
-words = ["zeroize"]
+words = [
+    "ciphertext",
+    "zeroize",
+]
