@@ -3,3 +3,4 @@ pub mod bcrypt;
 pub mod blake3;
 pub mod md5;
 pub mod xxhash;
+pub mod sha;
