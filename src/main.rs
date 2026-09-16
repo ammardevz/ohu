@@ -174,9 +174,31 @@ fn main() -> Result<()> {
             println!("wrote {output}");
         }
 
-        cli::Command::VerifyFileIntegrity { input } => {
-            let data = fs::read(&input)?;
-            println!("{}", blake3::hash(&data).to_hex());
+        cli::Command::VerifyFileIntegrity {
+            algorithm,
+            input,
+            hash,
+        } => {
+            let data = fs::read_to_string(&input)?;
+            let result = match algorithm {
+                cli::HashAlgorithm::Argon2 => verify_argon2(&data, &hash),
+                cli::HashAlgorithm::Bcrypt => verify_bcrypt(&data, &hash),
+                cli::HashAlgorithm::Md5 => verify_md5(&data, &hash),
+                cli::HashAlgorithm::Blake3 => verify_blake3(&data, &hash),
+                cli::HashAlgorithm::Xxh3 => verify_xxh3(&data, &hash),
+                cli::HashAlgorithm::Sha224 => verify_sha224(&data, &hash),
+                cli::HashAlgorithm::Sha256 => verify_sha256(&data, &hash),
+                cli::HashAlgorithm::Sha384 => verify_sha384(&data, &hash),
+                cli::HashAlgorithm::Sha512 => verify_sha512(&data, &hash),
+                cli::HashAlgorithm::Sha3_224 => verify_sha3_224(&data, &hash),
+                cli::HashAlgorithm::Sha3_256 => verify_sha3_256(&data, &hash),
+                cli::HashAlgorithm::Sha3_384 => verify_sha3_384(&data, &hash),
+                cli::HashAlgorithm::Sha3_512 => verify_sha3_512(&data, &hash),
+            };
+            match result {
+                Ok(()) => println!("valid"),
+                Err(e) => println!("invalid: {e}"),
+            }
         }
 
         cli::Command::CompareFile { first, second } => {

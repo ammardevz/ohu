@@ -49,7 +49,11 @@ pub enum Command {
     },
 
     VerifyFileIntegrity {
+        #[arg(short, long, value_enum)]
+        algorithm: HashAlgorithm,
+
         input: String,
+        hash: String,
     },
 
     CompareFile {
