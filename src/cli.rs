@@ -52,12 +52,32 @@ pub enum Command {
 #[derive(Debug, Clone, ValueEnum)]
 pub enum HashAlgorithm {
     Argon2,
+    Bcrypt,
+
+    Md5,
+    Blake3,
+    Xxh3,
+
+    Sha224,
     Sha256,
+    Sha384,
     Sha512,
+
+    Sha3_224,
+    Sha3_256,
+    Sha3_384,
+    Sha3_512,
 }
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum EncryptionAlgorithm {
-    Aes256,
-    ChaCha20,
+    Aes128Gcm,
+    Aes192Gcm,
+    Aes256Gcm,
+
+    ChaCha20Poly1305,
+    XChaCha20Poly1305,
+
+    Aes128Ccm,
+    Aes256Ccm,
 }
